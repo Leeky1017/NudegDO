@@ -1,0 +1,5 @@
+PR: https://github.com/Leeky1017/NudegDO/pull/6
+
+Notes:
+- Auto-merge enable failed: GraphQL: Pull request Protected branch rules not configured for this branch (enablePullRequestAutoMerge)
+- gh pr checks reported: no checks reported on the 'task/1-storage-local' branch
