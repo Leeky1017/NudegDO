@@ -2,7 +2,7 @@
 
 - Issue: https://github.com/Leeky1017/NudegDO/issues/9
 - Branch: task/9-prompt-templates
-- PR: <fill-after-created>
+- PR: https://github.com/Leeky1017/NudegDO/pull/11
 
 ## Plan
 - Add OpenSpec for prompt templates
@@ -52,3 +52,12 @@
   - exit 0
 - Evidence:
   - `rulebook/tasks/issue-9-prompt-templates/evidence/npm-typecheck.txt`
+
+### 2026-01-06 20:30 pr-open
+- Command:
+  - `scripts/agent_pr_automerge_and_sync.sh --no-wait`
+- Key output:
+  - PR created: https://github.com/Leeky1017/NudegDO/pull/11
+  - auto-merge enabled (squash)
+- Evidence:
+  - `openspec/_ops/task_runs/ISSUE-9.md`
