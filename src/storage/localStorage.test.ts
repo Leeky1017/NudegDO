@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { DEFAULT_SETTINGS, type Settings, type Task } from "../types";
+import { DEFAULT_SETTINGS, type Settings } from "../types";
 import { TaskStorage } from "./localStorage";
+import type { Task } from "../types/task";
 
 const TASKS_KEY = "nudgedo_tasks";
 const SETTINGS_KEY = "nudgedo_settings";
@@ -46,13 +47,16 @@ describe("TaskStorage", () => {
 
   it("saveTasks serializes tasks under nudgedo_tasks", () => {
     const tasks: Task[] = [
-      { id: 1, title: "t1", createdAt: 100, completed: false },
-      { id: 2, title: "t2", createdAt: 200, completed: true, completedAt: 300 }
+      { id: 1, title: "t1", createdAt: new Date(100), completed: false, isNudged: false },
+      { id: 2, title: "t2", createdAt: new Date(200), completed: true, completedAt: new Date(300), isNudged: false }
     ];
 
     storage.saveTasks(tasks);
 
-    expect(localStorage.getItem(TASKS_KEY)).toBe(JSON.stringify(tasks));
+    expect(JSON.parse(localStorage.getItem(TASKS_KEY) ?? "null")).toEqual([
+      { id: 1, title: "t1", createdAt: 100, completed: false, isNudged: false },
+      { id: 2, title: "t2", createdAt: 200, completed: true, completedAt: 300, isNudged: false }
+    ]);
   });
 
   it("loadTasks returns [] when nothing stored", () => {
@@ -60,10 +64,15 @@ describe("TaskStorage", () => {
   });
 
   it("loadTasks parses stored tasks array", () => {
-    const tasks: Task[] = [{ id: 1, title: "t1", createdAt: 100, completed: false }];
-    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+    localStorage.setItem(
+      TASKS_KEY,
+      JSON.stringify([{ id: 1, title: "t1", createdAt: 100, completed: false, isNudged: false }])
+    );
 
-    expect(storage.loadTasks()).toEqual(tasks);
+    const tasks = storage.loadTasks();
+    expect(tasks).toHaveLength(1);
+    expect(tasks[0]).toMatchObject({ id: 1, title: "t1", completed: false, isNudged: false });
+    expect(tasks[0]?.createdAt.getTime()).toBe(100);
   });
 
   it("loadTasks returns [] on invalid JSON and logs error", () => {
@@ -100,7 +109,7 @@ describe("TaskStorage", () => {
   });
 
   it("exportData returns versioned JSON with tasks + settings", () => {
-    const tasks: Task[] = [{ id: 1, title: "t1", createdAt: 100, completed: false }];
+    const tasks: Task[] = [{ id: 1, title: "t1", createdAt: new Date(100), completed: false, isNudged: false }];
     const settings: Settings = { ...DEFAULT_SETTINGS, maxRounds: 2 };
     storage.saveTasks(tasks);
     storage.saveSettings(settings);
@@ -108,36 +117,43 @@ describe("TaskStorage", () => {
     const exported = JSON.parse(storage.exportData()) as any;
 
     expect(exported.version).toBe(1);
-    expect(exported.tasks).toEqual(tasks);
+    expect(exported.tasks).toEqual([
+      { id: 1, title: "t1", createdAt: new Date(100).toISOString(), completed: false, isNudged: false }
+    ]);
     expect(exported.settings).toEqual(settings);
   });
 
   it("importData replaces tasks + settings when payload is valid", () => {
-    storage.saveTasks([{ id: 1, title: "old", createdAt: 1, completed: false }]);
+    storage.saveTasks([{ id: 1, title: "old", createdAt: new Date(1), completed: false, isNudged: false }]);
     storage.saveSettings({ ...DEFAULT_SETTINGS, maxRounds: 1, theme: "light" });
 
     storage.importData(
       JSON.stringify({
         version: 1,
-        tasks: [{ id: 2, title: "new", createdAt: 2, completed: true, completedAt: 3 }],
+        tasks: [{ id: 2, title: "new", createdAt: 2, completed: true, completedAt: 3, isNudged: false }],
         settings: { maxRounds: 2, theme: "dark" }
       })
     );
 
-    expect(storage.loadTasks()).toEqual([
-      { id: 2, title: "new", createdAt: 2, completed: true, completedAt: 3 }
-    ]);
+    const tasks = storage.loadTasks();
+    expect(tasks).toHaveLength(1);
+    expect(tasks[0]).toMatchObject({ id: 2, title: "new", completed: true, isNudged: false });
+    expect(tasks[0]?.createdAt.getTime()).toBe(2);
+    expect(tasks[0]?.completedAt?.getTime()).toBe(3);
     expect(storage.loadSettings()).toEqual({ ...DEFAULT_SETTINGS, maxRounds: 2, theme: "dark" });
   });
 
   it("importData does not modify storage when payload is invalid", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
-    storage.saveTasks([{ id: 1, title: "keep", createdAt: 1, completed: false }]);
+    storage.saveTasks([{ id: 1, title: "keep", createdAt: new Date(1), completed: false, isNudged: false }]);
     storage.saveSettings({ ...DEFAULT_SETTINGS, maxRounds: 1 });
 
     storage.importData("{not valid json");
 
-    expect(storage.loadTasks()).toEqual([{ id: 1, title: "keep", createdAt: 1, completed: false }]);
+    const tasks = storage.loadTasks();
+    expect(tasks).toHaveLength(1);
+    expect(tasks[0]).toMatchObject({ id: 1, title: "keep", completed: false, isNudged: false });
+    expect(tasks[0]?.createdAt.getTime()).toBe(1);
     expect(storage.loadSettings()).toEqual({ ...DEFAULT_SETTINGS, maxRounds: 1 });
     expect(spy).toHaveBeenCalled();
   });

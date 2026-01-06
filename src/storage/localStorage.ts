@@ -1,9 +1,18 @@
-import { DEFAULT_SETTINGS, type Settings, type Task } from "../types";
+import { DEFAULT_SETTINGS, type Settings } from "../types";
+import type { ChatMessage, Task } from "../types/task";
 
 const KEY_PREFIX = "nudgedo_" as const;
 const TASKS_KEY = `${KEY_PREFIX}tasks` as const;
 const SETTINGS_KEY = `${KEY_PREFIX}settings` as const;
 const EXPORT_VERSION = 1 as const;
+
+type SerializedChatMessage = Omit<ChatMessage, "timestamp"> & { timestamp: number };
+
+type SerializedTask = Omit<Task, "createdAt" | "completedAt" | "chatHistory"> & {
+  createdAt: number;
+  completedAt?: number;
+  chatHistory?: SerializedChatMessage[];
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -16,6 +25,96 @@ function safeJsonParse(raw: string): unknown | undefined {
     console.error("[TaskStorage] Failed to parse JSON:", error);
     return undefined;
   }
+}
+
+function deserializeDate(value: unknown): Date | undefined {
+  if (value instanceof Date) return value;
+  if (typeof value === "number" && Number.isFinite(value)) return new Date(value);
+  if (typeof value === "string") {
+    const ms = Date.parse(value);
+    if (Number.isFinite(ms)) return new Date(ms);
+  }
+  return undefined;
+}
+
+function serializeDate(value: Date | undefined): number | undefined {
+  if (!value) return undefined;
+  return value.getTime();
+}
+
+function coerceChatMessage(value: unknown): ChatMessage | undefined {
+  if (!isRecord(value)) return undefined;
+  if (value.role !== "ai" && value.role !== "user") return undefined;
+  if (typeof value.content !== "string") return undefined;
+
+  const timestamp = deserializeDate(value.timestamp);
+  if (!timestamp) return undefined;
+
+  return { role: value.role, content: value.content, timestamp };
+}
+
+function serializeChatMessage(message: ChatMessage): SerializedChatMessage {
+  return {
+    role: message.role,
+    content: message.content,
+    timestamp: message.timestamp.getTime(),
+  };
+}
+
+function coerceTask(value: unknown): Task | undefined {
+  if (!isRecord(value)) return undefined;
+
+  const id = value.id;
+  const title = value.title;
+  const completed = value.completed;
+  const createdAt = deserializeDate(value.createdAt);
+
+  if (typeof id !== "number" || !Number.isFinite(id)) return undefined;
+  if (typeof title !== "string") return undefined;
+  if (typeof completed !== "boolean") return undefined;
+  if (!createdAt) return undefined;
+
+  const completedAt = value.completedAt === undefined ? undefined : deserializeDate(value.completedAt);
+  const isNudged = typeof value.isNudged === "boolean" ? value.isNudged : false;
+
+  const persona = value.persona;
+  const personaValue: Task["persona"] | undefined =
+    persona === "coach" || persona === "buddy" ? persona : undefined;
+
+  const chatHistoryRaw = value.chatHistory;
+  const chatHistory = Array.isArray(chatHistoryRaw)
+    ? chatHistoryRaw
+        .map(coerceChatMessage)
+        .filter((message): message is ChatMessage => message !== undefined)
+    : undefined;
+
+  const scheduledTime = typeof value.scheduledTime === "string" ? value.scheduledTime : undefined;
+  const scheduledDate = typeof value.scheduledDate === "string" ? value.scheduledDate : undefined;
+  const duration =
+    typeof value.duration === "number" && Number.isFinite(value.duration) ? value.duration : undefined;
+
+  return {
+    id,
+    title,
+    completed,
+    createdAt,
+    completedAt: completedAt ?? undefined,
+    isNudged,
+    persona: personaValue,
+    chatHistory,
+    scheduledTime,
+    scheduledDate,
+    duration,
+  };
+}
+
+function serializeTask(task: Task): SerializedTask {
+  return {
+    ...task,
+    createdAt: task.createdAt.getTime(),
+    completedAt: serializeDate(task.completedAt),
+    chatHistory: task.chatHistory?.map(serializeChatMessage),
+  };
 }
 
 function coerceSettings(value: unknown): Partial<Settings> {
@@ -38,7 +137,7 @@ export class TaskStorage {
   saveTasks(tasks: Task[]): void {
     if (typeof localStorage === "undefined") return;
     try {
-      localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+      localStorage.setItem(TASKS_KEY, JSON.stringify(tasks.map(serializeTask)));
     } catch (error) {
       console.error("[TaskStorage] Failed to save tasks:", error);
     }
@@ -53,7 +152,23 @@ export class TaskStorage {
     const parsed = safeJsonParse(raw);
     if (!Array.isArray(parsed)) return [];
 
-    return parsed as Task[];
+    const tasks: Task[] = [];
+    let dropped = 0;
+
+    for (const item of parsed) {
+      const task = coerceTask(item);
+      if (!task) {
+        dropped += 1;
+        continue;
+      }
+      tasks.push(task);
+    }
+
+    if (dropped > 0) {
+      console.error(`[TaskStorage] Dropped ${dropped} invalid task(s) from storage.`);
+    }
+
+    return tasks;
   }
 
   saveSettings(settings: Settings): void {
@@ -108,9 +223,19 @@ export class TaskStorage {
       console.error("[TaskStorage] Import payload missing tasks array.");
       return;
     }
-    if (tasks.some((t) => !isRecord(t))) {
-      console.error("[TaskStorage] Import payload tasks must be objects.");
-      return;
+
+    const nextTasks: Task[] = [];
+    let dropped = 0;
+    for (const item of tasks) {
+      const task = coerceTask(item);
+      if (!task) {
+        dropped += 1;
+        continue;
+      }
+      nextTasks.push(task);
+    }
+    if (dropped > 0) {
+      console.error(`[TaskStorage] Import payload dropped ${dropped} invalid task(s).`);
     }
 
     const settings = parsed.settings;
@@ -119,8 +244,7 @@ export class TaskStorage {
       return;
     }
 
-    this.saveTasks(tasks as Task[]);
+    this.saveTasks(nextTasks);
     this.saveSettings({ ...DEFAULT_SETTINGS, ...coerceSettings(settings) });
   }
 }
-

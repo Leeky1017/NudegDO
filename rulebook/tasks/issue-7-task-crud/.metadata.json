@@ -1,0 +1,8 @@
+{
+  "issue": 7,
+  "slug": "task-crud",
+  "title": "[ROUND-00-APP-A] TASK-CRUD: Implement task CRUD",
+  "status": "in_progress",
+  "createdAt": "2026-01-06T12:11:31Z",
+  "spec": "openspec/specs/task-crud/spec.md"
+}
