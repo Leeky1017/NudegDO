@@ -1,0 +1,16 @@
+
+> nudgedo@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /home/leeky/work/NudgeDO/.worktrees/issue-7-task-crud
+
+ ✓ src/storage/localStorage.test.ts (11 tests) 8ms
+ ✓ src/services/taskService.test.ts (10 tests) 8ms
+ ✓ src/llm/client.test.ts (5 tests) 25ms
+
+ Test Files  3 passed (3)
+      Tests  26 passed (26)
+   Start at  20:17:30
+   Duration  296ms (transform 116ms, setup 0ms, collect 166ms, tests 41ms, environment 0ms, prepare 204ms)
+
