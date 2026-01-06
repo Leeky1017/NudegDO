@@ -1,4 +1,6 @@
-# llm-client Specification
+# llm-client Specification (Task Copy)
+
+Source of truth: `openspec/specs/llm-client/spec.md`
 
 ## Purpose
 LLM API 客户端封装，支持多模型提供商。
@@ -51,3 +53,4 @@ The system SHALL provide offline fallback when LLM unavailable.
 - WHEN generating questions
 - THEN use predefined template questions
 - AND indicate offline mode to user
+

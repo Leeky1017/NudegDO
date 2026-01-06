@@ -1,0 +1,14 @@
+
+> test
+> vitest run
+
+
+ RUN  v2.1.9 /home/leeky/work/NudgeDO/.worktrees/issue-3-llm-client
+
+ ✓ src/llm/client.test.ts (5 tests) 23ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  18:17:09
+   Duration  227ms (transform 40ms, setup 0ms, collect 33ms, tests 23ms, environment 0ms, prepare 48ms)
+
