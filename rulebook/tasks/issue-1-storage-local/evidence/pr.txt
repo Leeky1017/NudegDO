@@ -1,5 +1,10 @@
 PR: https://github.com/Leeky1017/NudegDO/pull/6
 
-Notes:
-- Auto-merge enable failed: GraphQL: Pull request Protected branch rules not configured for this branch (enablePullRequestAutoMerge)
-- gh pr checks reported: no checks reported on the 'task/1-storage-local' branch
+Auto-merge troubleshooting summary:
+- Initial error: `GraphQL: Pull request Protected branch rules not configured for this branch (enablePullRequestAutoMerge)`
+- Root cause: `main` had no branch protection rule (GitHub requires protected branch rules for PR auto-merge).
+- Fix applied:
+  - Enabled `main` branch protection.
+  - Configured required status checks: `ci`, `openspec-log-guard`, `merge-serial`.
+- Follow-up:
+  - PR showed merge conflict; rebased branch onto `origin/main` and resolved add/add conflicts for `package.json`, `tsconfig.json`, `vitest.config.ts`, `package-lock.json`.

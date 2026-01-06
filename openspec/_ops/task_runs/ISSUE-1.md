@@ -35,3 +35,19 @@
 - Command: `scripts/agent_pr_automerge_and_sync.sh`
 - Key output: PR created; auto-merge enable failed (protected branch rules not configured)
 - Evidence: rulebook/tasks/issue-1-storage-local/evidence/pr.txt
+
+### 2026-01-06 20:01 branch-protection
+- Command:
+  - `gh api --method PUT repos/Leeky1017/NudegDO/branches/main/protection ...`
+- Key output: enabled `main` branch protection + required checks (`ci`, `openspec-log-guard`, `merge-serial`)
+- Evidence: rulebook/tasks/issue-1-storage-local/evidence/pr.txt
+
+### 2026-01-06 20:02 rebase-and-verify
+- Command:
+  - `git fetch origin main && git rebase origin/main`
+  - `npm install --no-audit --no-fund --progress=false`
+  - `npm run typecheck && npm test`
+- Key output: conflict resolved; tests/typecheck green
+- Evidence:
+  - rulebook/tasks/issue-1-storage-local/evidence/typecheck.txt
+  - rulebook/tasks/issue-1-storage-local/evidence/test.txt
