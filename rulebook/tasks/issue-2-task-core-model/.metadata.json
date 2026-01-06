@@ -1,0 +1,8 @@
+{
+  "issue": 2,
+  "slug": "task-core-model",
+  "title": "[ROUND-00-CORE-A] TASK-CORE: 实现任务核心数据模型",
+  "status": "in_progress",
+  "createdAt": "2026-01-06T10:12:20Z",
+  "spec": "openspec/specs/task-core/spec.md"
+}
