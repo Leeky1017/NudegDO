@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NudgeDO - 温柔推动，启动你的一天</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF6B5B;
+      --coral-light: #FF8A7D;
+      --coral-glow: rgba(255, 107, 91, 0.3);
+      --cream: #FFF9F5;
+      --cream-dark: #F5EDE8;
+      --text-primary: #2D2A26;
+      --text-secondary: #6B6560;
+      --text-muted: #9B9590;
+      --sage: #7DB59A;
+      --sage-light: #E8F5ED;
+      --lavender: #9B8EC4;
+      --lavender-light: #F0EDF8;
+      --shadow-soft: 0 4px 20px rgba(45, 42, 38, 0.08);
+      --shadow-lifted: 0 8px 32px rgba(45, 42, 38, 0.12);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Serif SC', serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Ambient background shapes */
+    .ambient {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      z-index: -1;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .ambient-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--coral-light), var(--lavender));
+      top: -100px;
+      right: -100px;
+    }
+
+    .ambient-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, var(--sage), var(--coral-light));
+      bottom: 10%;
+      left: -50px;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--coral), var(--coral-light));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px var(--coral-glow);
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 16px var(--coral-glow); }
+      50% { transform: scale(1.05); box-shadow: 0 6px 24px var(--coral-glow); }
+    }
+
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .logo-text {
+      font-family: 'ZCOOL KuaiLe', cursive;
+      font-size: 1.6rem;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-ghost {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: var(--cream-dark);
+      color: var(--text-primary);
+    }
+
+    .btn-primary {
+      padding: 10px 24px;
+      border: none;
+      background: linear-gradient(135deg, var(--coral), var(--coral-light));
+      color: white;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 16px var(--coral-glow);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px var(--coral-glow);
+    }
+
+    /* Main container */
+    .main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 24px 100px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Greeting */
+    .greeting {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .greeting-time {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .greeting-text {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text-primary), var(--coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.4;
+    }
+
+    .greeting-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    /* Input area */
+    .input-area {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .input-area:focus-within {
+      box-shadow: var(--shadow-lifted);
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      gap: 8px;
+    }
+
+    .input-field {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 1.1rem;
+      padding: 16px;
+      color: var(--text-primary);
+      background: transparent;
+    }
+
+    .input-field::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* N Button - the star */
+    .n-button {
+      width: 52px;
+      height: 52px;
+      border: none;
+      background: linear-gradient(135deg, var(--cream-dark), white);
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'ZCOOL KuaiLe', cursive;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .n-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--coral), var(--coral-light));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .n-button span {
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .n-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 20px var(--coral-glow);
+    }
+
+    .n-button:hover::before {
+      opacity: 1;
+    }
+
+    .n-button:hover span {
+      color: white;
+    }
+
+    .n-button.active {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .n-button.active::before {
+      opacity: 1;
+    }
+
+    .n-button.active span {
+      color: white;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 4px 20px var(--coral-glow); }
+      50% { box-shadow: 0 4px 32px rgba(255, 107, 91, 0.5); }
+    }
+
+    .submit-btn {
+      width: 52px;
+      height: 52px;
+      border: none;
+      background: var(--text-primary);
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--coral);
+      transform: scale(1.05);
+    }
+
+    .submit-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Nudge Panel */
+    .nudge-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(180deg, var(--cream) 0%, white 100%);
+      border-top: 1px solid transparent;
+    }
+
+    .nudge-panel.active {
+      max-height: 500px;
+      border-top-color: var(--cream-dark);
+    }
+
+    .nudge-content {
+      padding: 24px;
+    }
+
+    .nudge-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ai-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--sage), var(--sage-light));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .ai-name {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ai-persona {
+      font-size: 0.85rem;
+      color: var(--sage);
+      background: var(--sage-light);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .nudge-questions {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--cream-dark);
+    }
+
+    .question-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.4s ease forwards;
+    }
+
+    .question-item:nth-child(1) { animation-delay: 0.1s; }
+    .question-item:nth-child(2) { animation-delay: 0.25s; }
+    .question-item:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-num {
+      width: 24px;
+      height: 24px;
+      background: var(--coral-light);
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .question-text {
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .nudge-input {
+      width: 100%;
+      border: 2px solid var(--cream-dark);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: none;
+      min-height: 80px;
+      transition: border-color 0.2s ease;
+    }
+
+    .nudge-input:focus {
+      outline: none;
+      border-color: var(--coral-light);
+    }
+
+    .nudge-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    /* Tasks Section */
+    .tasks-section {
+      margin-top: 16px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .task-count {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .tasks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Task Card */
+    .task-card {
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .task-card:hover {
+      box-shadow: var(--shadow-lifted);
+      transform: translateY(-2px);
+    }
+
+    .task-main {
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .task-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--cream-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .task-checkbox:hover {
+      border-color: var(--coral);
+    }
+
+    .task-checkbox.checked {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+
+    .task-checkbox.checked svg {
+      opacity: 1;
+    }
+
+    .task-checkbox svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .task-content {
+      flex: 1;
+    }
+
+    .task-title {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .task-card.completed .task-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .task-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .task-tag svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      opacity: 0.6;
+    }
+
+    .task-tag.nudge-tag {
+      color: var(--coral);
+      background: rgba(255, 107, 91, 0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .task-expand {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--cream);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .task-expand:hover {
+      background: var(--cream-dark);
+    }
+
+    .task-expand svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .task-card.expanded .task-expand svg {
+      transform: rotate(180deg);
+    }
+
+    /* Task Chat Panel */
+    .task-chat {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      background: var(--cream);
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .task-card.expanded .task-chat {
+      max-height: 400px;
+    }
+
+    .chat-content {
+      padding: 20px;
+    }
+
+    .chat-message {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .chat-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar.ai {
+      background: linear-gradient(135deg, var(--sage), var(--sage-light));
+    }
+
+    .chat-avatar.user {
+      background: linear-gradient(135deg, var(--lavender), var(--lavender-light));
+    }
+
+    .chat-bubble {
+      background: white;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border-top-left-radius: 4px;
+      max-width: 85%;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .chat-message.user .chat-bubble {
+      background: var(--lavender-light);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 4px;
+      margin-left: auto;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .empty-text {
+      font-size: 1rem;
+    }
+
+    /* Persona selector */
+    .persona-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .persona-btn {
+      padding: 8px 16px;
+      border: 2px solid var(--cream-dark);
+      background: white;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .persona-btn:hover {
+      border-color: var(--coral-light);
+    }
+
+    .persona-btn.active {
+      border-color: var(--coral);
+      background: rgba(255, 107, 91, 0.1);
+      color: var(--coral);
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      </div>
+      <span class="logo-text">NudgeDO</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost">登录</button>
+      <button class="btn-primary">开始使用</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="greeting">
+      <div class="greeting-time" id="currentTime">下午好</div>
+      <h1 class="greeting-text">今天想完成什么？</h1>
+      <p class="greeting-sub">写下来，让我帮你启动</p>
+    </div>
+
+    <div class="input-area">
+      <div class="input-wrapper">
+        <input type="text" class="input-field" placeholder="输入你的任务..." id="taskInput">
+        <button class="n-button" id="nudgeBtn" title="按 N 键进入 Nudge 模式">
+          <span>N</span>
+        </button>
+        <button class="submit-btn" id="submitBtn">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+      <div class="nudge-panel" id="nudgePanel"></div>
+    </div>
+
+    <div class="tasks-section">
+      <div class="section-header">
+        <h2 class="section-title">今日任务</h2>
+        <span class="task-count" id="taskCount">0 个任务</span>
+      </div>
+      <div class="tasks-list" id="tasksList"></div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
