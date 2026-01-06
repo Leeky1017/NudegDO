@@ -1,0 +1,9 @@
+{
+  "id": "issue-1-storage-local",
+  "issue": 1,
+  "slug": "storage-local",
+  "status": "in-progress",
+  "createdAt": "2026-01-06T18:08:00Z",
+  "specs": ["openspec/specs/storage-local/spec.md"]
+}
+

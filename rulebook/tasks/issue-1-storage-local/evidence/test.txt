@@ -1,0 +1,15 @@
+
+> nudgedo@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /home/leeky/work/NudgeDO/.worktrees/issue-1-storage-local
+
+ ✓ src/storage/localStorage.test.ts (11 tests) 5ms
+ ✓ src/llm/client.test.ts (5 tests) 21ms
+
+ Test Files  2 passed (2)
+      Tests  16 passed (16)
+   Start at  20:02:27
+   Duration  214ms (transform 54ms, setup 0ms, collect 72ms, tests 26ms, environment 0ms, prepare 84ms)
+
