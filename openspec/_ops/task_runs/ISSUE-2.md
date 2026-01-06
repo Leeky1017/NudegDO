@@ -24,3 +24,10 @@
   - `src/types/task.ts`
 - Evidence:
   - `rulebook/tasks/issue-2-task-core-model/evidence/verify.txt`
+
+### 2026-01-06 18:12 commit
+- Command:
+  - `git add openspec/_ops/task_runs/ISSUE-2.md rulebook/tasks/issue-2-task-core-model src/types/task.ts`
+  - `git commit -m "feat: add task core data model (#2)"`
+- Key output:
+  - `bd43318 feat: add task core data model (#2)`
