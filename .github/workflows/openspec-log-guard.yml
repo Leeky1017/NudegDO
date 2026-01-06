@@ -1,0 +1,53 @@
+name: openspec-log-guard
+on:
+  pull_request:
+
+jobs:
+  openspec-log-guard:
+    name: openspec-log-guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require matching openspec task run log
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          head_ref="${GITHUB_HEAD_REF:-}"
+          base_ref="${GITHUB_BASE_REF:-}"
+          pr_body="$(python3 - <<'PY'
+          import json, os
+          path = os.environ.get("GITHUB_EVENT_PATH")
+          if not path:
+            raise SystemExit(2)
+          with open(path, "r", encoding="utf-8") as f:
+            event = json.load(f)
+          pr = event.get("pull_request") or {}
+          body = pr.get("body") or ""
+          print(body)
+          PY
+          )"
+
+          if [[ -z "${head_ref}" || -z "${base_ref}" ]]; then
+            echo "missing GITHUB_HEAD_REF/GITHUB_BASE_REF (unexpected event type)" >&2
+            exit 1
+          fi
+
+          if ! [[ "${head_ref}" =~ ^task/([0-9]+)-[a-z0-9][a-z0-9-]*$ ]]; then
+            echo "invalid branch name: ${head_ref} (expected task/<N>-<slug>)" >&2
+            exit 1
+          fi
+
+          issue_number="${BASH_REMATCH[1]}"
+          required_file="openspec/_ops/task_runs/ISSUE-${issue_number}.md"
+
+          echo "${pr_body}" | grep -Eiq "Closes[[:space:]]*#[[:space:]]*${issue_number}\\b" \
+            || (echo "missing 'Closes #${issue_number}' in PR body" >&2 && exit 1)
+
+          git fetch origin "${base_ref}" --depth=1
+          files=$(git diff --name-only "origin/${base_ref}"...HEAD)
+          echo "${files}" | grep -Fx "${required_file}" >/dev/null \
+            || (echo "missing ${required_file} in PR diff" >&2 && exit 1)

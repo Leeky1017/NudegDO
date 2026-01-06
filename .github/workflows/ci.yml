@@ -8,6 +8,7 @@ on:
 
 jobs:
   ci:
+    name: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
         continue-on-error: true
       
       - name: Install dependencies
@@ -53,21 +53,3 @@ jobs:
             npm run build --if-present
           fi
         continue-on-error: true
-
-  openspec-log-guard:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Check task run log exists
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          LOG_FILE="openspec/_ops/task_runs/ISSUE-${PR_NUMBER}.md"
-          
-          if [ ! -f "$LOG_FILE" ]; then
-            echo "::warning::Task run log not found: $LOG_FILE"
-            echo "Consider adding task run log for traceability"
-          else
-            echo "Task run log found: $LOG_FILE"
-          fi

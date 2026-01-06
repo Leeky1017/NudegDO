@@ -1,0 +1,65 @@
+name: merge-serial
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: merge-main
+  cancel-in-progress: false
+
+jobs:
+  merge-serial:
+    name: merge-serial
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate by label (pass-through if no automerge)
+        shell: bash
+        run: |
+          set -euo pipefail
+          labels='${{ toJson(github.event.pull_request.labels.*.name) }}'
+          echo "$labels" | grep -q '"automerge"' || (echo "no automerge label; pass" && exit 0)
+
+      - uses: actions/checkout@v4
+        if: contains(toJson(github.event.pull_request.labels.*.name), 'automerge')
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Fetch PR head
+        if: contains(toJson(github.event.pull_request.labels.*.name), 'automerge')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "${{ github.event.pull_request.head.ref }}":pr_head
+
+      - name: Merge simulation (main + PR) and run minimal tests
+        if: contains(toJson(github.event.pull_request.labels.*.name), 'automerge')
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b merge_test origin/main
+          git merge --no-ff pr_head -m "merge-test"
+
+          # Node.js project
+          if [ -f package.json ]; then
+            npm ci
+            npm run lint --if-present
+            npm run typecheck --if-present
+            npm test --if-present
+          fi
+
+      - name: Enable auto-merge (squash) + delete branch
+        if: contains(toJson(github.event.pull_request.labels.*.name), 'automerge')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr="${{ github.event.pull_request.number }}"
+          gh pr merge "$pr" --auto --squash --delete-branch
