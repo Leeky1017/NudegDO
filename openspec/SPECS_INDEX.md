@@ -13,6 +13,7 @@
 | persona | [persona-coach](specs/persona-coach/spec.md) | Coach 人格定义 |
 | persona | [persona-buddy](specs/persona-buddy/spec.md) | Buddy 人格定义 |
 | llm | [llm-client](specs/llm-client/spec.md) | LLM API 客户端 |
+| llm | [prompt-templates](specs/prompt-templates/spec.md) | Prompt 模板（系统/渲染/fallback） |
 | storage | [storage-local](specs/storage-local/spec.md) | 本地存储 |
 
 ## 活跃变更 (changes/)
