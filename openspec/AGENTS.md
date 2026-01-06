@@ -1,51 +1,86 @@
-# OpenSpec - Agent 指令
+# NudgeDO OpenSpec AGENTS.md
 
-## 职责
-管理 NudgeDO 项目的规格说明（specs）和任务运行记录。
+## OpenSpec Workflow
 
-## 目录结构
+本项目使用 [OpenSpec](https://openspec.dev/) 规范驱动开发框架。
+
+### 目录结构
+
 ```
 openspec/
-├── project.md         # 项目元信息
-├── SPECS_INDEX.md     # 规格索引（本文件维护）
-├── AGENTS.md          # 本文件
-├── specs/             # 具体规格文件夹
-│   └── <spec-name>/
-│       ├── spec.md
-│       ├── requirements.md
+├── specs/           # 当前权威规格（Source of Truth）
+│   ├── task-core/
+│   ├── task-crud/
+│   ├── nudge-trigger/
+│   ├── nudge-conversation/
+│   ├── nudge-round/
+│   ├── persona-coach/
+│   ├── persona-buddy/
+│   ├── llm-client/
+│   ├── storage-local/
+│   └── auth-session/
+├── changes/         # 活跃变更提案
+│   └── mvp-core/
+│       ├── proposal.md
 │       ├── design.md
 │       ├── tasks.md
-│       ├── acceptance.md
-│       └── evidence.md
-├── tasks/             # 任务定义
-└── _ops/              # 操作日志
-    └── task_runs/     # Issue 运行记录
-        └── ISSUE-N.md
+│       └── specs/   # Spec deltas
+└── archive/         # 已归档变更
 ```
 
-## 规格生命周期
-1. **Draft**: 初始草稿
-2. **Review**: 评审中
-3. **Approved**: 已批准，可实施
-4. **Implemented**: 已实施
-5. **Archived**: 已归档
+### Spec 格式
 
-## 任务运行记录格式
-每个 Issue 对应一个 `ISSUE-N.md`，格式：
+每个 spec 文件使用以下格式：
 
-```md
-# ISSUE-N
+```markdown
+# <spec-name> Specification
 
-- Issue: #N
-- Branch: task/N-slug
-- PR: <PR-URL>
+## Purpose
+<简要描述>
 
-## Plan
-- <计划要点>
+## Requirements
 
-## Runs
-### YYYY-MM-DD HH:MM <标签>
-- Command: `<命令>`
-- Key output: `<关键输出>`
-- Evidence: `<证据路径>`
+### Requirement: <requirement-name>
+The system SHALL/MUST <behavior>.
+
+#### Scenario: <scenario-name>
+- GIVEN <precondition>
+- WHEN <action>
+- THEN <expected result>
 ```
+
+### Delta 格式
+
+变更使用 delta 格式记录增量：
+
+```markdown
+## ADDED Requirements
+### Requirement: <new-feature>
+
+## MODIFIED Requirements
+### Requirement: <changed-feature>
+
+## REMOVED Requirements
+### Requirement: <deprecated-feature>
+```
+
+### 工作流程
+
+1. **Draft** - 创建变更提案 (`changes/<change-id>/proposal.md`)
+2. **Review** - 审查 spec deltas 和 tasks
+3. **Implement** - 按 tasks.md 实现代码
+4. **Complete** - 完成所有任务
+5. **Archive** - 归档变更，合并 deltas 到 specs/
+
+## 开发指南
+
+### 技术栈
+- React 18 + TypeScript
+- Tailwind CSS
+- Vite
+- OpenRouter API (GLM4.5 AIR)
+
+### 代码规范
+- 使用 TypeScript 严格模式
+- 组件使用函数式 + Hooks
+- 状态管理使用 React Context
