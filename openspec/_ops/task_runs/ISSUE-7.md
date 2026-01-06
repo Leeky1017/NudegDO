@@ -2,7 +2,7 @@
 
 - Issue: https://github.com/Leeky1017/NudegDO/issues/7
 - Branch: task/7-task-crud
-- PR: <fill-after-created>
+- PR: https://github.com/Leeky1017/NudegDO/pull/8
 
 ## Plan
 - Implement `TaskService` CRUD and persistence.
@@ -49,3 +49,11 @@
   - `tsc -p tsconfig.json --noEmit`
 - Evidence:
   - `rulebook/tasks/issue-7-task-crud/evidence/typecheck.txt`
+
+### 2026-01-06 20:18 pr
+- Command:
+  - `scripts/agent_pr_automerge_and_sync.sh`
+- Key output:
+  - `PR https://github.com/Leeky1017/NudegDO/pull/8 (auto-merge squash)`
+- Evidence:
+  - `rulebook/tasks/issue-7-task-crud/evidence/pr.txt`
