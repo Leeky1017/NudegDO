@@ -1,0 +1,290 @@
+/* NudgeDO Styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Task Input */
+.task-input-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.task-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 28px;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-input:focus {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nudge-button {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: white;
+  font-family: "ZCOOL KuaiLe", cursive, sans-serif;
+  font-size: 24px;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nudge-button:hover {
+  transform: scale(1.05);
+}
+
+.nudge-button.active {
+  background: #ff6b5b;
+  color: white;
+  animation: breathing 3s ease-in-out infinite;
+}
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 91, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(255, 107, 91, 0); }
+}
+
+.submit-button {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: #667eea;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #5a6fd6;
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Nudge Panel */
+.nudge-panel {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; transform: translateY(-10px); }
+  to { opacity: 1; max-height: 500px; transform: translateY(0); }
+}
+
+.nudge-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.persona-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-preview {
+  color: #666;
+  font-size: 14px;
+}
+
+.nudge-questions {
+  margin-bottom: 16px;
+}
+
+.question-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.question-badge {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.nudge-response {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+}
+
+.nudge-response:focus {
+  border-color: #667eea;
+}
+
+.nudge-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.cancel-button {
+  padding: 10px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  background: white;
+  color: #666;
+  cursor: pointer;
+}
+
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #667eea;
+  color: white;
+  cursor: pointer;
+}
+
+.confirm-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Task List */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.task-card.completed .task-title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #667eea;
+  border-radius: 50%;
+  background: white;
+  color: #667eea;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-card.completed .task-checkbox {
+  background: #667eea;
+  color: white;
+}
+
+.task-title {
+  flex: 1;
+  font-size: 16px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.expand-button,
+.delete-button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.expand-button:hover,
+.delete-button:hover {
+  background: #e0e0e0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+}
