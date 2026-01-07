@@ -1,7 +1,7 @@
 # llm-client Specification
 
 ## Purpose
-LLM API 客户端封装，支持多模型提供商。
+定义 NudgeDO 的 LLM 调用抽象与 OpenRouter 集成约束，统一消息格式、错误语义与离线 fallback 行为。
 
 ## Requirements
 

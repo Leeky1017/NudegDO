@@ -15,6 +15,8 @@
 | llm | [llm-client](specs/llm-client/spec.md) | LLM API 客户端 |
 | llm | [prompt-templates](specs/prompt-templates/spec.md) | Prompt 模板（系统/渲染/fallback） |
 | storage | [storage-local](specs/storage-local/spec.md) | 本地存储 |
+| meta | [nudgedo-delivery-workflow](specs/nudgedo-delivery-workflow/spec.md) | 交付流程门禁（Issue→PR→Checks→Auto-merge） |
+| meta | [nudgedo-roadmap](specs/nudgedo-roadmap/spec.md) | Roadmap 执行计划与依赖表达 |
 
 ## 活跃变更 (changes/)
 
@@ -28,4 +30,4 @@
 
 ---
 
-*更新时间: 2026-01-06*
+*更新时间: 2026-01-07*

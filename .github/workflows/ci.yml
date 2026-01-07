@@ -1,9 +1,8 @@
-name: CI
+name: ci
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  push:
     branches: [main]
 
 jobs:
@@ -11,45 +10,30 @@ jobs:
     name: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-        continue-on-error: true
-      
+          node-version: "20"
+          cache: npm
+
+      - name: Install OpenSpec CLI
+        run: npm install -g @fission-ai/openspec@0.17.2
+
+      - name: OpenSpec validate (strict)
+        run: openspec validate --specs --strict --no-interactive
+
       - name: Install dependencies
-        run: |
-          if [ -f package.json ]; then
-            npm ci
-          fi
-        continue-on-error: true
-      
-      - name: Lint
-        run: |
-          if [ -f package.json ]; then
-            npm run lint --if-present
-          fi
-        continue-on-error: true
-      
+        run: npm ci
+
       - name: Type check
-        run: |
-          if [ -f package.json ]; then
-            npm run typecheck --if-present
-          fi
-        continue-on-error: true
-      
-      - name: Test
-        run: |
-          if [ -f package.json ]; then
-            npm test --if-present
-          fi
-        continue-on-error: true
-      
+        run: npm run typecheck --if-present
+
+      - name: Tests
+        run: npm test --if-present
+
       - name: Build
-        run: |
-          if [ -f package.json ]; then
-            npm run build --if-present
-          fi
-        continue-on-error: true
+        run: npm run build --if-present
+

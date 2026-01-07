@@ -1,7 +1,7 @@
 # task-crud Specification
 
 ## Purpose
-任务的增删改查操作。
+定义任务在 OnMe 与 Nudge 模式下的创建、完成切换、详情查看等最小 CRUD 行为，确保 UI 操作与数据状态一致可预测。
 
 ## Requirements
 

@@ -16,7 +16,10 @@ NudgeDO 是一款 AI 驱动的 TODO 应用，通过主动追问帮助用户将�
 2. **分支命名**：`task/<N>-<slug>`
 3. **Commit 规范**：每个 commit message 必须包含 `(#N)`
 4. **PR 规范**：必须包含 `Closes #N`，必须新增 `openspec/_ops/task_runs/ISSUE-N.md`
-5. **Checks**：`ci` 必须全绿
+5. **Checks**：`ci` / `openspec-log-guard` / `merge-serial` 必须全绿
+6. **Auto-merge**：必须启用（合并态由 `merge-serial` 串行验收）
+7. **Preflight**：PR 前必须运行 `scripts/agent_pr_preflight.sh`
+8. **Worktree**：每个 Issue 必须用 worktree 隔离开发，合并后必须清理 worktree
 
 ### 交付原则
 - **Spec-first**：先建 task + 写 spec，再写代码

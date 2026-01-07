@@ -1,7 +1,7 @@
 # persona-coach Specification
 
 ## Purpose
-Coach（教练）人格：专业、直接、结果导向。
+定义 Coach（教练）人格的语气、问题模板与系统 prompt 约束，目标是用专业直接的方式把模糊想法变成可执行、可安排的任务。
 
 ## Requirements
 

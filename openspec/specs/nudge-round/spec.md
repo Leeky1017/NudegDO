@@ -1,7 +1,7 @@
 # nudge-round Specification
 
 ## Purpose
-轮次制追问系统，控制问题数量和深度。
+定义轮次制追问的配置与行为边界：每轮问题数、最大轮数、避免重复与覆盖关键维度，以控制追问深度与用户负担。
 
 ## Requirements
 

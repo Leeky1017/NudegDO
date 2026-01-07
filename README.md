@@ -28,6 +28,8 @@ NudgeDO/
 ## 文档
 
 - [产品愿景](docs/01_product_vision.md) - 完整产品规划
+- [交付流程（OpenSpec）](openspec/specs/nudgedo-delivery-workflow/README.md) - Issue→PR→Checks→Auto-merge
+- [Contributing](CONTRIBUTING.md) - 协作/分支/PR/Checks 规范
 
 ---
 

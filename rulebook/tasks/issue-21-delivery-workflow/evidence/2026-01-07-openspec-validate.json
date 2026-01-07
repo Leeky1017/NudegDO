@@ -1,0 +1,180 @@
+{
+  "items": [
+    {
+      "id": "auth-session",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "ERROR",
+          "path": "requirements.1.text",
+          "message": "Requirement must contain SHALL or MUST keyword"
+        },
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 3
+    },
+    {
+      "id": "llm-client",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 1
+    },
+    {
+      "id": "nudge-conversation",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 1
+    },
+    {
+      "id": "nudge-round",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 1
+    },
+    {
+      "id": "nudge-trigger",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 0
+    },
+    {
+      "id": "nudgedo-delivery-workflow",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 0
+    },
+    {
+      "id": "nudgedo-roadmap",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    },
+    {
+      "id": "persona-buddy",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 1
+    },
+    {
+      "id": "persona-coach",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 1
+    },
+    {
+      "id": "prompt-templates",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    },
+    {
+      "id": "storage-local",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 0
+    },
+    {
+      "id": "task-core",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "ERROR",
+          "path": "requirements.3.text",
+          "message": "Requirement must contain SHALL or MUST keyword"
+        },
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 0
+    },
+    {
+      "id": "task-crud",
+      "type": "spec",
+      "valid": false,
+      "issues": [
+        {
+          "level": "WARNING",
+          "path": "overview",
+          "message": "Purpose section is too brief (less than 50 characters)"
+        }
+      ],
+      "durationMs": 0
+    }
+  ],
+  "summary": {
+    "totals": {
+      "items": 13,
+      "passed": 3,
+      "failed": 10
+    },
+    "byType": {
+      "spec": {
+        "items": 13,
+        "passed": 3,
+        "failed": 10
+      }
+    }
+  },
+  "version": "1.0"
+}
