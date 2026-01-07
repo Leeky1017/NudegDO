@@ -288,3 +288,118 @@ body {
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
 }
+
+/* Task Drawer */
+.task-drawer {
+  background: #f8f8f8;
+  border-radius: 0 0 20px 20px;
+  margin-top: -8px;
+  padding: 16px;
+  animation: slideDown 0.3s ease;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.drawer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.drawer-close {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #666;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.drawer-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.drawer-empty {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+/* Chat Bubbles */
+.chat-bubble {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chat-bubble.user {
+  justify-content: flex-end;
+}
+
+.bubble-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bubble-content {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bubble-content.assistant {
+  background: white;
+  color: #333;
+}
+
+.bubble-content.user {
+  background: #e8e4f8;
+  color: #333;
+}
+
+/* Persona Selector */
+.persona-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.persona-option {
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.persona-option:hover {
+  border-color: #667eea;
+}
+
+.persona-option.active {
+  border-color: currentColor;
+  background: currentColor;
+  color: white;
+}
