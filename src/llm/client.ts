@@ -39,7 +39,10 @@ export class LLMError extends Error {
   }
 }
 
+export type LLMProvider = "openrouter" | "nvidia";
+
 type LLMClientConfig = {
+  provider?: LLMProvider;
   apiKey?: string;
   endpoint?: string;
   model?: string;
@@ -49,7 +52,21 @@ type LLMClientConfig = {
   fetch?: typeof fetch;
 };
 
+const PROVIDER_DEFAULTS: Record<LLMProvider, { endpoint: string; model: string; envKey: string }> = {
+  openrouter: {
+    endpoint: "https://openrouter.ai/api/v1/chat/completions",
+    model: "nex-agi/deepseek-v3.1-nex-n1:free",
+    envKey: "OPENROUTER_API_KEY"
+  },
+  nvidia: {
+    endpoint: "https://integrate.api.nvidia.com/v1/chat/completions",
+    model: "moonshotai/kimi-k2-instruct",
+    envKey: "NVIDIA_API_KEY"
+  }
+};
+
 export class LLMClient {
+  readonly provider: LLMProvider;
   readonly endpoint: string;
   readonly model: string;
   readonly referer: string;
@@ -59,13 +76,16 @@ export class LLMClient {
   private readonly fetchImpl: typeof fetch;
 
   constructor(config: LLMClientConfig = {}) {
-    const apiKey = config.apiKey ?? process.env.OPENROUTER_API_KEY;
+    this.provider = config.provider ?? "nvidia";
+    const defaults = PROVIDER_DEFAULTS[this.provider];
+
+    const apiKey = config.apiKey ?? process.env[defaults.envKey];
     if (!apiKey) {
-      throw new LLMError("AUTH", "Missing OPENROUTER_API_KEY environment variable");
+      throw new LLMError("AUTH", `Missing ${defaults.envKey} environment variable`);
     }
 
-    this.endpoint = config.endpoint ?? "https://openrouter.ai/api/v1/chat/completions";
-    this.model = config.model ?? "nex-agi/deepseek-v3.1-nex-n1:free";
+    this.endpoint = config.endpoint ?? defaults.endpoint;
+    this.model = config.model ?? defaults.model;
     this.referer = config.referer ?? "https://nudgedo.app";
     this.title = config.title ?? "NudgeDO";
     this.timeoutMs = config.timeoutMs ?? 30_000;
@@ -104,10 +124,10 @@ export class LLMClient {
       });
 
       if (res.status === 429) {
-        throw new LLMError("RATE_LIMIT", "OpenRouter rate limit exceeded", { status: 429 });
+        throw new LLMError("RATE_LIMIT", "LLM rate limit exceeded", { status: 429 });
       }
       if (res.status === 401) {
-        throw new LLMError("AUTH", "OpenRouter authentication failed", { status: 401 });
+        throw new LLMError("AUTH", "LLM authentication failed", { status: 401 });
       }
       if (!res.ok) {
         let detail = "";
@@ -117,28 +137,32 @@ export class LLMClient {
         } catch {
           // ignore
         }
-        throw new LLMError("HTTP", `OpenRouter request failed (${res.status})${detail}`, {
+        throw new LLMError("HTTP", `LLM request failed (${res.status})${detail}`, {
           status: res.status
         });
       }
 
       const data = (await res.json()) as {
-        choices?: Array<{ message?: { content?: string } }>;
+        choices?: Array<{ message?: { content?: string | null; reasoning_content?: string | null } }>;
       };
 
-      const content = data?.choices?.[0]?.message?.content;
+      const msg = data?.choices?.[0]?.message;
+      // NVIDIA GLM4 returns reasoning_content instead of content
+      let content = msg?.content ?? msg?.reasoning_content;
       if (typeof content !== "string") {
-        throw new LLMError("BAD_RESPONSE", "OpenRouter response missing choices[0].message.content");
+        throw new LLMError("BAD_RESPONSE", "LLM response missing message content");
       }
+      // Strip <think>...</think> tags from MiniMax responses
+      content = content.replace(/<think>[\s\S]*?<\/think>\s*/g, "").trim();
       return content;
     } catch (err) {
       if (err instanceof LLMError) throw err;
       if (didTimeout) {
-        throw new LLMError("TIMEOUT", `OpenRouter request timed out after ${timeoutMs}ms`, {
+        throw new LLMError("TIMEOUT", `LLM request timed out after ${timeoutMs}ms`, {
           cause: err
         });
       }
-      throw new LLMError("NETWORK", "OpenRouter request failed", { cause: err });
+      throw new LLMError("NETWORK", "LLM request failed", { cause: err });
     } finally {
       clearTimeout(timeoutId);
     }
