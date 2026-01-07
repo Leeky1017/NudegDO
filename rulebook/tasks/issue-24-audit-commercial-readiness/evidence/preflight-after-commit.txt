@@ -1,0 +1,31 @@
+NudgeDO PR preflight
+- Repo   : /home/leeky/work/NudgeDO/.worktrees/issue-24-audit-commercial-readiness
+- Branch : task/24-audit-commercial-readiness
+- Issue  : #24
+- Base   : origin/main
+
+== Changed Files ==
+- docs/audit/ND_AUDIT_REPORT.md
+- docs/audit/ND_OPTIMIZATION_REPORT.md
+- openspec/SPECS_INDEX.md
+- openspec/_ops/task_runs/ISSUE-24.md
+- openspec/specs/audit-commercial-readiness/spec.md
+- rulebook/tasks/issue-24-audit-commercial-readiness/.metadata.json
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/.gitkeep
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/env.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-audit.json
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-audit.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-build.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-ls-depth0.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-test.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/npm-typecheck.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/preflight.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/evidence/secret-scan.txt
+- rulebook/tasks/issue-24-audit-commercial-readiness/proposal.md
+- rulebook/tasks/issue-24-audit-commercial-readiness/tasks.md
+
+== Open PR File Overlap ==
+OK: no overlapping files with open PRs
+
+== Roadmap Dependencies ==
+OK: no hard dependencies found in execution plan

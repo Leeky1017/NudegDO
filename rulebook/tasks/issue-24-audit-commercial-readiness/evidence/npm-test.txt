@@ -1,0 +1,20 @@
+
+> nudgedo@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /home/leeky/work/NudgeDO/.worktrees/issue-24-audit-commercial-readiness
+
+ ✓ src/llm/prompts.test.ts (4 tests) 4ms
+ ✓ src/personas/buddy.test.ts (6 tests) 4ms
+ ✓ src/personas/coach.test.ts (4 tests) 3ms
+ ✓ src/storage/localStorage.test.ts (11 tests) 7ms
+ ✓ src/services/nudgeService.test.ts (12 tests) 8ms
+ ✓ src/llm/client.test.ts (5 tests) 26ms
+ ✓ src/services/taskService.test.ts (10 tests) 8ms
+
+ Test Files  7 passed (7)
+      Tests  52 passed (52)
+   Start at  17:21:58
+   Duration  305ms (transform 293ms, setup 0ms, collect 464ms, tests 59ms, environment 1ms, prepare 429ms)
+

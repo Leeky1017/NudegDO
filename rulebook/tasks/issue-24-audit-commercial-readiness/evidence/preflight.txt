@@ -1,0 +1,14 @@
+NudgeDO PR preflight
+- Repo   : /home/leeky/work/NudgeDO/.worktrees/issue-24-audit-commercial-readiness
+- Branch : task/24-audit-commercial-readiness
+- Issue  : #24
+- Base   : origin/main
+
+== Changed Files ==
+(none)
+
+== Open PR File Overlap ==
+OK: no overlapping files with open PRs
+
+== Roadmap Dependencies ==
+OK: no hard dependencies found in execution plan
