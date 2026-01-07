@@ -1,0 +1,9 @@
+{
+  "id": "issue-24-audit-commercial-readiness",
+  "issue": 24,
+  "slug": "audit-commercial-readiness",
+  "title": "[AUDIT-01] AUDIT-R001: ND 全量审计与商业化优化报告",
+  "status": "in-progress",
+  "createdAt": "2026-01-07T17:16:00Z",
+  "specs": ["openspec/specs/audit-commercial-readiness/spec.md"]
+}

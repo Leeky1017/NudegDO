@@ -1,0 +1,11 @@
+nudgedo@0.0.0 /home/leeky/work/NudgeDO/.worktrees/issue-24-audit-commercial-readiness
+├── @types/node@20.19.27
+├── @types/react-dom@18.3.7
+├── @types/react@18.3.27
+├── @vitejs/plugin-react@4.7.0
+├── react-dom@18.3.1
+├── react@18.3.1
+├── typescript@5.9.3
+├── vite@5.4.21
+└── vitest@2.1.9
+
