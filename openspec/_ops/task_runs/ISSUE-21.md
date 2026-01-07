@@ -2,7 +2,7 @@
 
 - Issue: https://github.com/Leeky1017/NudegDO/issues/21
 - Branch: task/21-delivery-workflow
-- PR: <fill-after-created>
+- PR: https://github.com/Leeky1017/NudegDO/pull/22
 
 ## Plan
 - Localize SS delivery workflow docs into NudgeDO
@@ -47,3 +47,11 @@
   - `✓ built in 529ms`
 - Evidence:
   - `rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-node-checks.txt`
+
+### 2026-01-07 16:58 PR auto-merge + sync
+- Command:
+  - `scripts/agent_pr_automerge_and_sync.sh`
+- Key output:
+  - `OK: merged PR #22 and synced controlplane main (issue #21, slug delivery-workflow)`
+- Evidence:
+  - `rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-pr-automerge.txt`
