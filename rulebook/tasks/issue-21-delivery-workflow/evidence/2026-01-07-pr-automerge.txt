@@ -1,0 +1,128 @@
+Everything up-to-date
+branch 'task/21-delivery-workflow' set up to track 'origin/task/21-delivery-workflow'.
+NudgeDO PR preflight
+- Repo   : /home/leeky/work/NudgeDO/.worktrees/issue-21-delivery-workflow
+- Branch : task/21-delivery-workflow
+- Issue  : #21
+- Base   : origin/main
+
+== Changed Files ==
+- .github/pull_request_template.md
+- .github/workflows/ci.yml
+- .github/workflows/merge-serial.yml
+- .github/workflows/openspec-log-guard.yml
+- .gitignore
+- AGENTS.md
+- CONTRIBUTING.md
+- README.md
+- openspec/AGENTS.md
+- openspec/SPECS_INDEX.md
+- openspec/_ops/task_runs/ISSUE-21.md
+- openspec/specs/auth-session/spec.md
+- openspec/specs/llm-client/spec.md
+- openspec/specs/nudge-conversation/spec.md
+- openspec/specs/nudge-round/spec.md
+- openspec/specs/nudge-trigger/spec.md
+- openspec/specs/nudgedo-delivery-workflow/README.md
+- openspec/specs/nudgedo-delivery-workflow/spec.md
+- openspec/specs/nudgedo-roadmap/execution_plan.md
+- openspec/specs/nudgedo-roadmap/spec.md
+- openspec/specs/persona-buddy/spec.md
+- openspec/specs/persona-coach/spec.md
+- openspec/specs/storage-local/spec.md
+- openspec/specs/task-core/spec.md
+- openspec/specs/task-crud/spec.md
+- rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-node-checks.txt
+- rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate-after.txt
+- rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate.json
+- rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate.txt
+- rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-preflight.txt
+- rulebook/tasks/issue-21-delivery-workflow/proposal.md
+- rulebook/tasks/issue-21-delivery-workflow/tasks.md
+- scripts/agent_pr_automerge_and_sync.sh
+- scripts/agent_pr_preflight.py
+- scripts/agent_pr_preflight.sh
+- scripts/agent_worktree_cleanup.sh
+
+== Open PR File Overlap ==
+OK: no overlapping files with open PRs
+
+== Roadmap Dependencies ==
+OK: no hard dependencies found in execution plan
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+ci	pending	0	https://github.com/Leeky1017/NudegDO/actions/runs/20775983215/job/59661761174	
+merge-serial	pending	0	https://github.com/Leeky1017/NudegDO/actions/runs/20775983218/job/59661761201	
+openspec-log-guard	pending	0	https://github.com/Leeky1017/NudegDO/actions/runs/20775983257/job/59661761187	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+merge-serial	pending	0	https://github.com/Leeky1017/NudegDO/actions/runs/20775983218/job/59661761201	
+openspec-log-guard	pass	5s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983257/job/59661761187	
+ci	pending	0	https://github.com/Leeky1017/NudegDO/actions/runs/20775983215/job/59661761174	
+ci	pass	18s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983215/job/59661761174	
+merge-serial	pass	18s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983218/job/59661761201	
+openspec-log-guard	pass	5s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983257/job/59661761187	
+ci	pass	18s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983215/job/59661761174	
+merge-serial	pass	18s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983218/job/59661761201	
+openspec-log-guard	pass	5s	https://github.com/Leeky1017/NudegDO/actions/runs/20775983257/job/59661761187	
+From https://github.com/Leeky1017/NudegDO
+   629a61e..6fdeee6  main       -> origin/main
+From https://github.com/Leeky1017/NudegDO
+ * branch            main       -> FETCH_HEAD
+Updating 629a61e..6fdeee6
+Fast-forward
+ .github/pull_request_template.md                   |  14 +
+ .github/workflows/ci.yml                           |  64 ++--
+ .github/workflows/merge-serial.yml                 |  70 ++---
+ .github/workflows/openspec-log-guard.yml           | 110 ++++---
+ .gitignore                                         |   3 +
+ AGENTS.md                                          |   5 +-
+ CONTRIBUTING.md                                    |  51 ++++
+ README.md                                          |   2 +
+ openspec/AGENTS.md                                 |  21 ++
+ openspec/SPECS_INDEX.md                            |   4 +-
+ openspec/_ops/task_runs/ISSUE-21.md                |  49 ++++
+ openspec/specs/auth-session/spec.md                |   4 +-
+ openspec/specs/llm-client/spec.md                  |   2 +-
+ openspec/specs/nudge-conversation/spec.md          |   2 +-
+ openspec/specs/nudge-round/spec.md                 |   2 +-
+ openspec/specs/nudge-trigger/spec.md               |   2 +-
+ openspec/specs/nudgedo-delivery-workflow/README.md | 113 ++++++++
+ openspec/specs/nudgedo-delivery-workflow/spec.md   |  70 +++++
+ openspec/specs/nudgedo-roadmap/execution_plan.md   |  20 ++
+ openspec/specs/nudgedo-roadmap/spec.md             |  19 ++
+ openspec/specs/persona-buddy/spec.md               |   2 +-
+ openspec/specs/persona-coach/spec.md               |   2 +-
+ openspec/specs/storage-local/spec.md               |   2 +-
+ openspec/specs/task-core/spec.md                   |   4 +-
+ openspec/specs/task-crud/spec.md                   |   2 +-
+ .../evidence/2026-01-07-node-checks.txt            |  42 +++
+ .../2026-01-07-openspec-validate-after.txt         |  14 +
+ .../evidence/2026-01-07-openspec-validate.json     | 180 ++++++++++++
+ .../evidence/2026-01-07-openspec-validate.txt      |  14 +
+ .../evidence/2026-01-07-preflight.txt              |  14 +
+ .../tasks/issue-21-delivery-workflow/proposal.md   |  27 ++
+ rulebook/tasks/issue-21-delivery-workflow/tasks.md |  14 +
+ scripts/agent_pr_automerge_and_sync.sh             | 246 +++++++++++++---
+ scripts/agent_pr_preflight.py                      | 322 +++++++++++++++++++++
+ scripts/agent_pr_preflight.sh                      |  17 ++
+ scripts/agent_worktree_cleanup.sh                  | 103 +++++++
+ 36 files changed, 1446 insertions(+), 186 deletions(-)
+ create mode 100644 .github/pull_request_template.md
+ create mode 100644 CONTRIBUTING.md
+ create mode 100644 openspec/_ops/task_runs/ISSUE-21.md
+ create mode 100644 openspec/specs/nudgedo-delivery-workflow/README.md
+ create mode 100644 openspec/specs/nudgedo-delivery-workflow/spec.md
+ create mode 100644 openspec/specs/nudgedo-roadmap/execution_plan.md
+ create mode 100644 openspec/specs/nudgedo-roadmap/spec.md
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-node-checks.txt
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate-after.txt
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate.json
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-openspec-validate.txt
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/evidence/2026-01-07-preflight.txt
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/proposal.md
+ create mode 100644 rulebook/tasks/issue-21-delivery-workflow/tasks.md
+ create mode 100755 scripts/agent_pr_preflight.py
+ create mode 100755 scripts/agent_pr_preflight.sh
+ create mode 100755 scripts/agent_worktree_cleanup.sh
+OK: merged PR #22 and synced controlplane main (issue #21, slug delivery-workflow)
