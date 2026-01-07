@@ -90,3 +90,4 @@
   - exit 0
 - Evidence:
   - `rulebook/tasks/issue-24-audit-commercial-readiness/evidence/preflight.txt`
+  - `rulebook/tasks/issue-24-audit-commercial-readiness/evidence/preflight-after-commit.txt`
