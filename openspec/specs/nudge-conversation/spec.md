@@ -1,7 +1,7 @@
 # nudge-conversation Specification
 
 ## Purpose
-Nudge 模式下的对话交互流程。
+定义 Nudge 面板的展开、问题展示、用户回答、确认/取消等交互链路，确保无需页面跳转也能完成从输入到创建任务的闭环。
 
 ## Requirements
 

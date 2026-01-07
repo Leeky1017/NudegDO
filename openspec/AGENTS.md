@@ -4,6 +4,27 @@
 
 本项目使用 [OpenSpec](https://openspec.dev/) 规范驱动开发框架。
 
+## 交付硬门禁（OpenSpec + Rulebook + GitHub）
+
+NudgeDO 沿用 `$openspec-rulebook-github-delivery`，权威说明见：
+- `openspec/specs/nudgedo-delivery-workflow/spec.md`
+- `openspec/specs/nudgedo-delivery-workflow/README.md`
+
+核心门禁（MUST）：
+- Issue `#N` 是任务唯一 ID
+- 分支：`task/<N>-<slug>`
+- Commit：message 必须包含 `(#N)`
+- PR：body 必须包含 `Closes #N` 且包含 run log：`openspec/_ops/task_runs/ISSUE-N.md`
+- Required checks：`ci` / `openspec-log-guard` / `merge-serial` 全绿并启用 auto-merge
+- Worktree 隔离开发，合并后清理
+
+常用命令：
+- 控制面同步：`scripts/agent_controlplane_sync.sh`
+- 创建 worktree：`scripts/agent_worktree_setup.sh <N> <slug>`
+- PR 预检：`scripts/agent_pr_preflight.sh`
+- 一键 PR + auto-merge：`scripts/agent_pr_automerge_and_sync.sh`
+- 合并后清理 worktree：`scripts/agent_worktree_cleanup.sh <N> <slug>`
+
 ### 目录结构
 
 ```

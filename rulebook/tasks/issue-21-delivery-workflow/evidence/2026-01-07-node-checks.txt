@@ -1,0 +1,42 @@
+npm test
+
+> nudgedo@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /home/leeky/work/NudgeDO/.worktrees/issue-21-delivery-workflow
+
+ ✓ src/llm/prompts.test.ts (4 tests) 4ms
+ ✓ src/personas/coach.test.ts (4 tests) 5ms
+ ✓ src/personas/buddy.test.ts (6 tests) 3ms
+ ✓ src/services/nudgeService.test.ts (12 tests) 7ms
+ ✓ src/storage/localStorage.test.ts (11 tests) 8ms
+ ✓ src/llm/client.test.ts (5 tests) 26ms
+ ✓ src/services/taskService.test.ts (10 tests) 8ms
+
+ Test Files  7 passed (7)
+      Tests  52 passed (52)
+   Start at  16:54:09
+   Duration  331ms (transform 312ms, setup 0ms, collect 490ms, tests 60ms, environment 1ms, prepare 392ms)
+
+
+npm run typecheck
+
+> nudgedo@0.0.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+npm run build
+
+> nudgedo@0.0.0 build
+> tsc && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 45 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.47 kB │ gzip:  0.33 kB
+dist/assets/index-B12g-CwO.css    4.96 kB │ gzip:  1.51 kB
+dist/assets/index-CHvJfh-M.js   160.87 kB │ gzip: 53.34 kB
+✓ built in 529ms

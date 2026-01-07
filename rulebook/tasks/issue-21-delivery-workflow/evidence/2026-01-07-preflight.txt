@@ -1,0 +1,14 @@
+NudgeDO PR preflight
+- Repo   : /home/leeky/work/NudgeDO/.worktrees/issue-21-delivery-workflow
+- Branch : task/21-delivery-workflow
+- Issue  : #21
+- Base   : origin/main
+
+== Changed Files ==
+(none)
+
+== Open PR File Overlap ==
+OK: no overlapping files with open PRs
+
+== Roadmap Dependencies ==
+OK: no hard dependencies found in execution plan

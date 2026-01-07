@@ -1,7 +1,7 @@
 # auth-session Specification
 
 ## Purpose
-用户会话管理（Phase 2+）。
+定义 NudgeDO 的会话/身份状态模型与生命周期：默认匿名可用，并为未来登录/云同步预留一致的扩展点（Phase 2+）。
 
 ## Requirements
 
@@ -15,7 +15,7 @@ The system SHALL support anonymous usage without login.
 - AND store data locally only
 
 ### Requirement: Optional Authentication
-The system MAY support optional user authentication.
+The system SHALL support optional user authentication.
 
 #### Scenario: User login
 - GIVEN user chooses to login

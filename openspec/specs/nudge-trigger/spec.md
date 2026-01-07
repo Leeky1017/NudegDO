@@ -1,7 +1,7 @@
 # nudge-trigger Specification
 
 ## Purpose
-Nudge 模式的触发机制。
+定义 Nudge 模式的触发入口与状态切换规则（按钮/快捷键/自动展开），保证用户能随时进入/退出并获得可预期的 UI 反馈。
 
 ## Requirements
 

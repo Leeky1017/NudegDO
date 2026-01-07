@@ -1,7 +1,7 @@
 # task-core Specification
 
 ## Purpose
-定义任务的核心数据模型和基础结构。
+定义任务实体的最小数据模型与字段语义（ID、时间戳、完成状态、Nudge 元数据、可选时间规划），作为后续 CRUD 与 UI 的统一基础。
 
 ## Requirements
 
@@ -40,7 +40,7 @@ The system SHALL store Nudge-related metadata for tasks created via Nudge mode.
 - AND store the full chat history
 
 ### Requirement: Time Planning
-The system MAY store optional time planning information.
+The system SHALL store optional time planning information when provided.
 
 #### Scenario: Store scheduled time
 - GIVEN user provides time information during Nudge

@@ -1,7 +1,7 @@
 # storage-local Specification
 
 ## Purpose
-浏览器本地存储，持久化任务和设置。
+定义浏览器本地持久化的键、数据结构与导入导出规则，确保任务/设置在刷新后可恢复，并对损坏数据提供安全默认值。
 
 ## Requirements
 
