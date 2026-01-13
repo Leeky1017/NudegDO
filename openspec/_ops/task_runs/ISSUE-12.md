@@ -2,7 +2,7 @@
 
 - Issue: #12
 - Branch: task/12-persona-coach
-- PR: <fill-after-created>
+- PR: https://github.com/Leeky1017/NudegDO/pull/14
 
 ## Plan
 - Add Coach persona module (`src/personas/coach.ts`)
@@ -28,3 +28,11 @@
   - `Tests  34 passed (34)`
 - Evidence:
   - `rulebook/tasks/issue-12-persona-coach/evidence/2026-01-06-tests.txt`
+
+### 2026-01-06 23:43 PR merge
+- Command:
+  - `gh pr merge 14 --auto --squash`
+- Key output:
+  - `✓ Squashed and merged pull request Leeky1017/NudegDO#14`
+- Evidence:
+  - `openspec/_ops/task_runs/ISSUE-12.md`
